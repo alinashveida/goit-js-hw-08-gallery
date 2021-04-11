@@ -58,6 +58,7 @@ function onGalleryClick (event) {
 
    imageOverlay.src = target.dataset.source;
    imageOverlay.alt = target.alt;
+   console.log(target)
 
 
   // console.log(event.target.nodeName);
@@ -75,6 +76,7 @@ function onButtonClose (event){
   lightbox.classList.remove("is-open");
   imageOverlay.src = "";
   imageOverlay.alt = "";
+
 
 };
 
@@ -106,31 +108,60 @@ function onEscClose(event){
 
 
 
-//------------
+//------------Промотування галереї-----------------------
 
 window.addEventListener('keydown', onKeyDownGallery);
 
-let currentIndex = 1
+let currentIndex = 0;
+const imageLength = galleryItems.length;
+
+
 function onKeyDownGallery(event){
-    // if(event.code !=="ArrowRight" || event.code !== "ArrowLeft" ){
-    //     return
-    // }
+  if(!lightbox.classList.contains('is-open')){
+    return
+  }
+    if(event.code !=="ArrowRight" && event.code !== "ArrowLeft" ){
+        return
+    }
+    // if(event.code === "ArrowLeft" && currentIndex === 0){
+    //   return
+
+    
+     
+    if(event.code === "ArrowRight" && currentIndex === imageLength ){
+      currentIndex =0;
+      imageOverlay.src = galleryItems[currentIndex].original;
+
+    }
+
+    if(event.code === "ArrowLeft" && currentIndex === 0){
+        currentIndex = imageLength -1;
+         imageOverlay.src = galleryItems[currentIndex].original;
+    }
+
     if(event.code === "ArrowRight"){
         console.log(currentIndex);
         currentIndex +=1;
+        imageOverlay.src = galleryItems[currentIndex].original;
     }
 
+    
     if(event.code === "ArrowLeft"){
         currentIndex -=1;
-        console.log(currentIndex)
+        console.log(currentIndex);
+        imageOverlay.src = galleryItems[currentIndex].original;
     }
 
-    if(currentIndex < 0 || currentIndex > galleryItems.length){
-        currentIndex = 0
-    }
+    
+
+    
     setModalImage(currentIndex);
 }
 
 function setModalImage(index){
+  // for (let index = 0; index < galleryItems.length; index++) {
+  //   const element = galleryItems[index];
+  //   console.log(galleryItems[index]);
+  }
     console.log(galleryItems[index]);
 }
