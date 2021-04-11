@@ -162,6 +162,6 @@ function setModalImage(index){
   // for (let index = 0; index < galleryItems.length; index++) {
   //   const element = galleryItems[index];
   //   console.log(galleryItems[index]);
-  }
+  //}
     console.log(galleryItems[index]);
 }
