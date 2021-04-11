@@ -74,7 +74,7 @@ function onGalleryClick (event) {
   }
 
   galleryMarkup.forEach((el, index) => {
-    if (el.includes(event.target.src)) {
+    if (el.includes(target.src)) {
       currentIndex = index;
     }
   });
@@ -85,11 +85,7 @@ function onGalleryClick (event) {
    imageOverlay.alt = target.alt;
    console.log(target)
 
-
-  // console.log(event.target.nodeName);
-  // const target = event.currentTarget;
-  // console.log(target);
-};
+}
 
 //-------закриття модалки---------------------------------//
 const buttonClose = document.querySelector('.lightbox__button');
@@ -148,22 +144,7 @@ function onKeyDownGallery(event){
     if(event.code !=="ArrowRight" && event.code !== "ArrowLeft" ){
         return
     }
-    // if(event.code === "ArrowLeft" && currentIndex === 0){
-    //   return
-
-    
-     
-    // if(event.code === "ArrowRight" && currentIndex === imageLength ){
-    //   currentIndex =0;
-    //   imageOverlay.src = galleryItems[currentIndex].original;
-
-    // }
-
-    // if(event.code === "ArrowLeft" && currentIndex === 0){
-    //     currentIndex = imageLength -1;
-    //      imageOverlay.src = galleryItems[currentIndex].original;
-    //     //  return
-    // }
+  
 
     if(event.code === "ArrowRight" && currentIndex < imageLength-1){
         console.log(currentIndex);
@@ -190,16 +171,6 @@ function onKeyDownGallery(event){
        imageOverlay.src = galleryItems[currentIndex].original;
     }
 
-    
-
-    
-    // setModalImage(currentIndex);
+  
 }
 
-// function setModalImage(index){
-//   // for (let index = 0; index < galleryItems.length; index++) {
-//   //   const element = galleryItems[index];
-//   //   console.log(galleryItems[index]);
-//   //}
-//     console.log(galleryItems[index]);
-// }
