@@ -3,12 +3,31 @@ console.log(galleryItems);
 
 const galleryList = document.querySelector('.js-gallery');
 console.log(galleryList);
+////----------------------------------------------------------------------
+// const galleryMarkup = createGalleryMarkup(galleryItems);
 
-const galleryMarkup = createGalleryMarkup(galleryItems);
+// function createGalleryMarkup(galleryItems) {
+//     return galleryItems
+//        .map(({preview, original, description}) =>{
+//            return`
+//            <li class="gallery__item">
+//   <a
+//     class="gallery__link"
+//     href="${original}"
+//   >
+//     <img
+//       class="gallery__image"
+//       src="${preview}"
+//       data-source="${original}"
+//       alt="${description}"
+//     />
+//   </a>
+// </li>`
+//        }).join('');
 
-function createGalleryMarkup(galleryItems) {
-    return galleryItems
-       .map(({preview, original, description}) =>{
+// }
+//--------------------------------------------------------------------------------
+const galleryMarkup = galleryItems.map(({preview, original, description}) =>{
            return`
            <li class="gallery__item">
   <a
@@ -23,11 +42,10 @@ function createGalleryMarkup(galleryItems) {
     />
   </a>
 </li>`
-       }).join('');
+       });
 
-}
 
-galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
+galleryList.insertAdjacentHTML('beforeend', galleryMarkup.join(''));
 
 
 
@@ -54,6 +72,13 @@ function onGalleryClick (event) {
   if(target.nodeName !== 'IMG'){
     return
   }
+
+  galleryMarkup.forEach((el, index) => {
+    if (el.includes(event.target.src)) {
+      currentIndex = index;
+    }
+  });
+
    lightbox.classList.add("is-open");
 
    imageOverlay.src = target.dataset.source;
@@ -112,7 +137,7 @@ function onEscClose(event){
 
 window.addEventListener('keydown', onKeyDownGallery);
 
-let currentIndex = 0;
+let currentIndex = null;
 const imageLength = galleryItems.length;
 
 
@@ -128,40 +153,53 @@ function onKeyDownGallery(event){
 
     
      
-    if(event.code === "ArrowRight" && currentIndex === imageLength ){
-      currentIndex =0;
-      imageOverlay.src = galleryItems[currentIndex].original;
+    // if(event.code === "ArrowRight" && currentIndex === imageLength ){
+    //   currentIndex =0;
+    //   imageOverlay.src = galleryItems[currentIndex].original;
 
-    }
+    // }
 
-    if(event.code === "ArrowLeft" && currentIndex === 0){
-        currentIndex = imageLength -1;
-         imageOverlay.src = galleryItems[currentIndex].original;
-    }
+    // if(event.code === "ArrowLeft" && currentIndex === 0){
+    //     currentIndex = imageLength -1;
+    //      imageOverlay.src = galleryItems[currentIndex].original;
+    //     //  return
+    // }
 
-    if(event.code === "ArrowRight"){
+    if(event.code === "ArrowRight" && currentIndex < imageLength-1){
         console.log(currentIndex);
         currentIndex +=1;
         imageOverlay.src = galleryItems[currentIndex].original;
+        return
+
     }
 
     
-    if(event.code === "ArrowLeft"){
+    if(event.code === "ArrowLeft" && currentIndex > 0){
         currentIndex -=1;
         console.log(currentIndex);
         imageOverlay.src = galleryItems[currentIndex].original;
+        return
+    }
+    if(event.code === "ArrowLeft" && currentIndex === 0){
+       currentIndex = imageLength-1;
+       imageOverlay.src = galleryItems[currentIndex].original;
+
+    }
+    if(event.code === "ArrowRight" && currentIndex === imageLength-1){
+      currentIndex = 0;
+       imageOverlay.src = galleryItems[currentIndex].original;
     }
 
     
 
     
-    setModalImage(currentIndex);
+    // setModalImage(currentIndex);
 }
 
-function setModalImage(index){
-  // for (let index = 0; index < galleryItems.length; index++) {
-  //   const element = galleryItems[index];
-  //   console.log(galleryItems[index]);
-  //}
-    console.log(galleryItems[index]);
-}
+// function setModalImage(index){
+//   // for (let index = 0; index < galleryItems.length; index++) {
+//   //   const element = galleryItems[index];
+//   //   console.log(galleryItems[index]);
+//   //}
+//     console.log(galleryItems[index]);
+// }
