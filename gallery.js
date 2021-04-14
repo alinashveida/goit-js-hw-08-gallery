@@ -91,25 +91,19 @@ function onGalleryClick (event) {
 const buttonClose = document.querySelector('.lightbox__button');
 console.log(buttonClose);
 
-buttonClose.addEventListener('click', onButtonClose);
+buttonClose.addEventListener('click', onModalClose);
 
-function onButtonClose (event){
+//----------overlay-------
+const overlay = document.querySelector('.lightbox__overlay');
+
+overlay.addEventListener('click', onModalClose);
+
+function onModalClose (event){
   lightbox.classList.remove("is-open");
   imageOverlay.src = "";
   imageOverlay.alt = "";
 
 
-};
-
-//----------overlay-------
-const overlay = document.querySelector('.lightbox__overlay');
-
-overlay.addEventListener('click', onClickOverlay);
-
-function onClickOverlay(event){
-    lightbox.classList.remove("is-open");
-    imageOverlay.src = "";
-    imageOverlay.alt = "";
 };
 
 //----escape----
@@ -120,14 +114,10 @@ function onEscClose(event){
         return
     }
     if(lightbox.classList.contains("is-open")){
-        lightbox.classList.remove("is-open");
-        imageOverlay.src = "";
-        imageOverlay.alt = "";
+      onModalClose (event)
     }
     
 };
-
-
 
 //------------Промотування галереї-----------------------
 
